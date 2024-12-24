@@ -32,14 +32,14 @@ export default function HomePageHeader() {
                     </Link>
 
                     <Link
-                        href="/about"
+                        href="/aboutUs"
                         className="text-lg font-medium hover:text-purple-400 transition duration-300"
                     >
                         About
                     </Link>
 
                     <Link
-                        href="/contact"
+                        href="/contactUs"
                         className="text-lg font-medium hover:text-purple-400 transition duration-300"
                     >
                         Contact Us
