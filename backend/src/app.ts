@@ -1,7 +1,7 @@
 import express from "express";
 import config from "config";
-import log from "../utils/loggerConfig/logger";
-import connectMongoDb from "../utils/mongoDbConfig/mongoDbConnect";
+import log from "./utils/loggerConfig/logger";
+import connectMongoDb from "./utils/mongoDbConfig/mongoDbConnect";
 
 const port=config.get<number>('port');
 const app=express();
