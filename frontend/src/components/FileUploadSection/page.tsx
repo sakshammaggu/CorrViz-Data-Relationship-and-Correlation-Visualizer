@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import DropFile from '../DropFile/page'
 import { Button } from '@/components/ui/button';
+import axios from 'axios';
 
 const FileUploadSection: React.FC = () => {
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
@@ -13,9 +14,23 @@ const FileUploadSection: React.FC = () => {
       console.log("File selected:", file.name);
     };
 
-    const handleShowDetails = () => {
+    const handleShowDetails = async () => {
       if (uploadedFile) {
-        setShowDetails(true);
+        try {
+          const formData=new FormData();
+          formData.append('file', uploadedFile);
+
+          const response = await axios.post('http://localhost:8000/api/upload', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+          
+          console.log('Uploaded File Metadata:', response.data);
+          setShowDetails(true);
+        } catch (error) {
+          console.error('Error uploading file:', error);
+        }
       }
     };
   
