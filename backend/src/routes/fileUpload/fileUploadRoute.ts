@@ -5,6 +5,8 @@ import uploadErrorHandler from '../../middleware/uploadErrorHandler';
 import fileMetadataLoggerMiddleware from '../../middleware/fileMetadataLoggerMiddleware';
 import fileValidationMiddleware from '../../middleware/fileValidationMiddleware';
 
+import { uploadFile } from '../../controllers/fileController';
+
 const router=express.Router();
 const upload=multer({dest:'uploads/'});
 
@@ -16,9 +18,7 @@ router.post(
     fileMetadataLoggerMiddleware,
     uploadErrorHandler,
 
-    (req:Request, res:Response) => {
-        res.status(200).json({message:'CSV File uploaded successfully', file:req.file});
-    }
+    uploadFile
 );
 
 export default router;
