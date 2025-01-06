@@ -26,15 +26,12 @@ def generate_correlation_heatmap(df):
     output_folder = "outputs"
     os.makedirs(output_folder, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    output_file_path = os.path.join(output_folder, f"heatmap_{timestamp}.png")
+    heatmap_output_file_path = os.path.join(output_folder, f"heatmap_{timestamp}.png")
 
     # Save the heatmap to the file on disk
-    try:
-        with open(output_file_path, "wb") as f:
-            f.write(heatmap_image.read())
-    except Exception as e:
-        print(f"Error saving heatmap: {str(e)}")  # Debugging line
+    with open(heatmap_output_file_path, "wb") as f:
+        f.write(heatmap_image.read())
 
     heatmap_base64 = base64.b64encode(heatmap_image.getvalue()).decode("utf-8")
 
-    return heatmap_base64, output_file_path
+    return heatmap_base64, heatmap_output_file_path
