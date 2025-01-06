@@ -12,7 +12,6 @@ def generate_correlation_heatmap(df):
 
     correlation_matrix = numeric_df.corr()
 
-    # Plot the heatmap
     plt.figure(figsize=(10, 8))
     sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt=".2f", square=True, linewidths=0.5)
     plt.title("Correlation Heatmap")
@@ -22,13 +21,11 @@ def generate_correlation_heatmap(df):
 
     heatmap_image.seek(0)
 
-    # Save the heatmap to outputs directory
     output_folder = "outputs"
     os.makedirs(output_folder, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     heatmap_output_file_path = os.path.join(output_folder, f"heatmap_{timestamp}.png")
 
-    # Save the heatmap to the file on disk
     with open(heatmap_output_file_path, "wb") as f:
         f.write(heatmap_image.read())
 
