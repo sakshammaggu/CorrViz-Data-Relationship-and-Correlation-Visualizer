@@ -7,7 +7,7 @@ interface DropFileProps {
 
 const DropFile: React.FC<DropFileProps> = ({ onFileSelect }) => {
     const [dragging, setDragging] = useState<boolean>(false);
-    const [selectedFile, setSlectedFile] = useState<File | null>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
@@ -23,7 +23,7 @@ const DropFile: React.FC<DropFileProps> = ({ onFileSelect }) => {
         setDragging(false);
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
             const file = e.dataTransfer.files[0];
-            setSlectedFile(file);
+            setSelectedFile(file);
             onFileSelect(file); 
         }
     };
@@ -31,7 +31,7 @@ const DropFile: React.FC<DropFileProps> = ({ onFileSelect }) => {
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-            setSlectedFile(file);
+            setSelectedFile(file);
             onFileSelect(file);
         }
     };
@@ -54,13 +54,13 @@ const DropFile: React.FC<DropFileProps> = ({ onFileSelect }) => {
             />
             <label htmlFor="fileInput" className="cursor-pointer">
                 {selectedFile ? (
-                <p className="text-sm text-gray-700">
-                    Selected File: <span className="font-medium">{selectedFile.name}</span>
-                </p>
+                    <p className="text-sm text-gray-700">
+                        Selected File: <span className="font-medium">{selectedFile.name}</span>
+                    </p>
                 ) : (
-                <p className="text-sm text-gray-600">
-                    Drag and drop a file here, or <span className="text-blue-500">click to select a file</span>.
-                </p>
+                    <p className="text-sm text-gray-600">
+                        Drag and drop a file here, or <span className="text-blue-500">click to select a file</span>.
+                    </p>
                 )}
             </label>
         </div>
