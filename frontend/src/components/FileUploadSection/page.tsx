@@ -5,54 +5,63 @@ import { Button } from '@/components/ui/button';
 import axios from 'axios';
 
 const FileUploadSection: React.FC = () => {
-    const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-    const [showDetails, setShowDetails] = useState<boolean>(false);
-    
-    const handleFileSelect = (file: File) => {
-      setUploadedFile(file);
-      setShowDetails(false);
-      console.log("File selected:", file.name);
-    };
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [showDetails, setShowDetails] = useState<boolean>(false);
+  const [images, setImages] = useState<{ title: string; base64: string }[]>([]);
+  
+  const handleFileSelect = (file: File) => {
+    setUploadedFile(file);
+    setShowDetails(false);
+    setImages([]);
+    console.log("File selected:", file.name);
+  };
 
-    const handleShowDetails = async () => {
-      if (uploadedFile) {
-        try {
-          const formData=new FormData();
-          formData.append('file', uploadedFile);
+  const handleShowDetails = async () => {
+    if (uploadedFile) {
+      try {
+        const formData=new FormData();
+        formData.append('file', uploadedFile);
 
-          const response = await axios.post('/api/upload', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
-          
-          console.log('Uploaded File Metadata:', response.data);
-          setShowDetails(true);
-        } catch (error) {
-          console.error('Error uploading file:', error);
-        }
+        const response = await axios.post('/api/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        
+        console.log('Response from backend:', response.data);
+
+        setImages([
+          { title: 'Heatmap', base64: response.data.pythonServiceMetadata.heatmap.heatmap_base64 },
+          { title: 'Pairplot', base64: response.data.pythonServiceMetadata.pairplot.pairplot_base64 },
+          { title: 'Scatterplots', base64: response.data.pythonServiceMetadata.scatterplots.scatterplots_base64 },
+        ]);
+        setShowDetails(true);
+      } catch (error) {
+        console.error('Error uploading file:', error);
       }
-    };
-  
-    return (
-      <section className="flex-1 flex flex-col items-center justify-center p-6">
-        <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-8">
-          <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-            Upload Your File
-          </h1>
+    }
+  };
 
-          <DropFile onFileSelect={handleFileSelect} />
+  return (
+    <section className="flex-1 flex flex-col items-center justify-center p-6">
+      <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-8">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+          Upload Your File
+        </h1>
 
-          <div className="mt-6 flex justify-center">
-            <Button
-              onClick={handleShowDetails}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg"
-            >
-              Upload & Show Details
-            </Button>
-          </div>
-  
-          {showDetails && uploadedFile && (
+        <DropFile onFileSelect={handleFileSelect} />
+
+        <div className="mt-6 flex justify-center">
+          <Button
+            onClick={handleShowDetails}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg"
+          >
+            Upload & Show Details
+          </Button>
+        </div>
+
+        {showDetails && uploadedFile && (
+          <>
             <div className="mt-6 bg-gray-100 p-4 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold text-gray-700 mb-2">
                 Uploaded File Details
@@ -67,10 +76,33 @@ const FileUploadSection: React.FC = () => {
                 <strong>Type:</strong> {uploadedFile.type}
               </p>
             </div>
-          )}
-        </div>
-      </section>
-    );
-  };
+
+            {images.length > 0 && (
+              <div className="mt-6">
+                <h2 className="text-xl font-semibold text-gray-700 mb-2">
+                  Generated Visualizations
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {images.map((image, index) => (
+                    <div key={index} className="border rounded-lg shadow-md p-2">
+                      <img
+                        src={`data:image/png;base64,${image.base64}`}
+                        alt={image.title}
+                        className="max-w-full h-auto"
+                      />
+                      <p className="text-center mt-2 text-sm text-gray-600">
+                        {image.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </section>
+  );
+};
   
-  export default FileUploadSection;
+export default FileUploadSection;
