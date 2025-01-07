@@ -2,22 +2,26 @@
 import React, { useState } from 'react'
 import DropFile from '../DropFile/page'
 import { Button } from '@/components/ui/button';
+import { Progress } from '../ui/progress';
 import axios from 'axios';
 
 const FileUploadSection: React.FC = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const [images, setImages] = useState<{ title: string; base64: string }[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   
   const handleFileSelect = (file: File) => {
     setUploadedFile(file);
     setShowDetails(false);
     setImages([]);
+    setLoading(false);
     console.log("File selected:", file.name);
   };
 
   const handleShowDetails = async () => {
     if (uploadedFile) {
+      setLoading(true);
       try {
         const formData=new FormData();
         formData.append('file', uploadedFile);
@@ -38,6 +42,8 @@ const FileUploadSection: React.FC = () => {
         setShowDetails(true);
       } catch (error) {
         console.error('Error uploading file:', error);
+      } finally {
+        setLoading(false); 
       }
     }
   };
@@ -59,6 +65,15 @@ const FileUploadSection: React.FC = () => {
             Upload & Show Details
           </Button>
         </div>
+
+        {loading && (
+          <div className="mt-6">
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              Loading, please wait...
+            </h2>
+            <Progress value={100} max={100} className="w-full bg-blue-500" />
+          </div>
+        )}
 
         {showDetails && uploadedFile && (
           <>
