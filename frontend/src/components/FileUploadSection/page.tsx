@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import DropFile from '../DropFile/page'
 import { Button } from '@/components/ui/button';
 import { Progress } from '../ui/progress';
+import { Download } from 'lucide-react';
 import axios from 'axios';
 
 const FileUploadSection: React.FC = () => {
@@ -71,7 +72,7 @@ const FileUploadSection: React.FC = () => {
             <h2 className="text-xl font-semibold text-gray-700 mb-2">
               Loading, please wait...
             </h2>
-            <Progress value={100} max={100} className="w-full bg-blue-500" />
+            <Progress value={100} max={100} className="w-full" />
           </div>
         )}
 
@@ -99,12 +100,24 @@ const FileUploadSection: React.FC = () => {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {images.map((image, index) => (
-                    <div key={index} className="border rounded-lg shadow-md p-2">
+                    <div key={index} className="relative border rounded-lg shadow-md p-2 group">
                       <img
                         src={`data:image/png;base64,${image.base64}`}
                         alt={image.title}
                         className="max-w-full h-auto"
                       />
+                      <a
+                        href={`data:image/png;base64,${image.base64}`}
+                        download={`${image.title}.png`}
+                        className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      >
+                        <Button
+                          className="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2"
+                        >
+                          <Download size={20} />
+                          Download
+                        </Button>
+                      </a>
                       <p className="text-center mt-2 text-sm text-gray-600">
                         {image.title}
                       </p>
