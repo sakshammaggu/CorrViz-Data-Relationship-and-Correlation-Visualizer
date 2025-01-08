@@ -6,6 +6,7 @@ import Link from 'next/link';
 export default function HomePageHeader() {
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
     return (
         <header className="bg-gray-800 text-white shadow-lg sticky top-0 z-50">
             <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
@@ -23,7 +24,7 @@ export default function HomePageHeader() {
                     </span>
                 </div>
 
-                <nav className="hidden md:flex space-x-6">
+                <nav className="hidden md:flex items-center justify-center flex-1 space-x-6">
                     <Link
                         href="/home"
                         className="text-lg font-medium hover:text-purple-400 transition duration-300"
@@ -46,29 +47,45 @@ export default function HomePageHeader() {
                     </Link>
                 </nav>
 
-                <div className="md:hidden">
-                    <button
-                        type="button"
-                        onClick={toggleSidebar}
-                        className="text-purple-400 focus:outline-none"
-                        aria-label="Toggle navigation"
+                <div className="flex space-x-4">
+                    <Link
+                        href="/login"
+                        className="text-md font-medium bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-300"
                     >
-                        <svg
-                            className="w-6 h-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
+                        Login
+                    </Link>
+
+                    <Link
+                        href="/signup"
+                        className="text-md font-medium bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-300"
+                    >
+                        Sign Up
+                    </Link>
+                </div>
+            </div>
+
+            <div className="md:hidden">
+                <button
+                    type="button"
+                    onClick={toggleSidebar}
+                    className="text-purple-400 focus:outline-none"
+                    aria-label="Toggle navigation"
+                >
+                    <svg
+                        className="w-6 h-6"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
                         <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth={2}
                             d={isSidebarOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
                         />
-                        </svg>
-                    </button>
-                </div>
+                    </svg>
+                </button>
             </div>
 
             {isSidebarOpen && (
@@ -93,10 +110,10 @@ export default function HomePageHeader() {
                                 stroke="currentColor"
                             >
                                 <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M6 18L18 6M6 6l12 12"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M6 18L18 6M6 6l12 12"
                                 />
                             </svg>
                         </button>
@@ -121,6 +138,20 @@ export default function HomePageHeader() {
                                 className="block text-lg font-medium text-white hover:text-purple-400 transition duration-300"
                             >
                                 Contact Us
+                            </Link>
+
+                            <Link
+                                href="/login"
+                                className="block text-md font-medium bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-300"
+                            >
+                                Login
+                            </Link>
+
+                            <Link
+                                href="/signup"
+                                className="block text-md font-medium bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-300"
+                            >
+                                Sign Up
                             </Link>
                         </nav>
                     </div>
