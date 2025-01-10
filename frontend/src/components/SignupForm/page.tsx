@@ -7,6 +7,7 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, For
 import { Input } from '@/components/ui/input';
 import { Button } from "../ui/button";
 import Link from "next/link"
+import GoogleSignupButton from "../GoogleAuthenticationButton/GoogleSignupButton/page";
 
 const formSchema = z.object({
     email: z.string().email("Please enter a valid email address.").min(1, "Email is required."),
@@ -24,6 +25,10 @@ const SignupForm: React.FC = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         console.log(values);
+    };
+
+    const handleGoogleSignUp = () => {
+        console.log("Google Sign-In initiated");
     };
 
     return (
@@ -81,10 +86,19 @@ const SignupForm: React.FC = () => {
                         className="w-full bg-blue-600 text-white hover:bg-blue-700"
                         disabled={form.formState.isSubmitting}
                     >
-                        {form.formState.isSubmitting ? 'Signing Up...' : 'Sign up'}
+                        {form.formState.isSubmitting ? 'Signing Up...' : 'Sign Up'}
                     </Button>
                 </form>
             </Form>
+
+            <div className="flex items-center my-4">
+                <hr className="flex-grow border-gray-300" />
+                <span className="px-4 text-gray-500">OR</span>
+                <hr className="flex-grow border-gray-300" />
+            </div>
+
+            <GoogleSignupButton onClick={handleGoogleSignUp} />
+            
             <p className="mt-4 text-center text-sm">
                 Have an account?{' '}
                 <Link href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
