@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
 
@@ -12,7 +13,7 @@ const GoogleSignupButton: React.FC<GoogleSignupButtonProps> = ({
     isLoading = false,
 }) => {
     return (
-        <button
+        <Button
             onClick={onClick}
             className={`w-full flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg shadow-md hover:bg-gray-100 transition duration-300 ${
                 isLoading ? "cursor-not-allowed opacity-50" : ""
@@ -23,7 +24,7 @@ const GoogleSignupButton: React.FC<GoogleSignupButtonProps> = ({
             {isLoading
                 ? "Processing..."
                 : "Sign Up with Google"}
-        </button>
+        </Button>
     );
 };
 
