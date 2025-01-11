@@ -24,11 +24,11 @@ const LoginForm: React.FC = () => {
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
+        // console.log(values);
     };
 
     const handleGoogleLogin = () => {
-        console.log("Google Sign-In initiated");
+        // console.log("Google Sign-In initiated");
     };
 
 

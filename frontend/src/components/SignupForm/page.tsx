@@ -45,12 +45,12 @@ const SignupForm: React.FC = () => {
             toast.success('User registered successfully!', {
                 position: 'top-right',
             });
-            console.log('User signed up:', response.data);
+            // console.log('User signed up:', response.data);
             setTimeout(() => {
                 router.push('/'); 
             }, 2000); 
         } catch (error: any) {
-            console.error('Error signing up:', error.response?.data || error.message);
+            // console.error('Error signing up:', error.response?.data || error.message);
             toast.error('Error signing up: ' + (error.response?.data?.message || error.message), {
                 position: 'top-right',
             });
@@ -58,7 +58,7 @@ const SignupForm: React.FC = () => {
     };
 
     const handleGoogleSignUp = () => {
-        console.log("Google Sign-In initiated");
+        // console.log("Google Sign-In initiated");
     };
 
     return (

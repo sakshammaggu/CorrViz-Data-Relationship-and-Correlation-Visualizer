@@ -17,7 +17,7 @@ const FileUploadSection: React.FC = () => {
     setShowDetails(false);
     setImages([]);
     setLoading(false);
-    console.log("File selected:", file.name);
+    // console.log("File selected:", file.name);
   };
 
   const handleShowDetails = async () => {
@@ -33,7 +33,7 @@ const FileUploadSection: React.FC = () => {
           },
         });
         
-        console.log('Response from backend:', response.data);
+        // console.log('Response from backend:', response.data);
 
         setImages([
           { title: 'Heatmap', base64: response.data.pythonServiceMetadata.heatmap.heatmap_base64 },
