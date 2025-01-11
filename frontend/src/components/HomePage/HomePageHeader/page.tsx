@@ -23,17 +23,19 @@ export default function HomePageHeader() {
         <header className="bg-gray-800 text-white shadow-lg sticky top-0 z-50">
             <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
                 <div className="flex items-center space-x-2">
-                    <Image
-                        src="/images/projectLogo.png" 
-                        alt="CorrViz Logo"
-                        width={80}
-                        height={50}
-                    />
+                    <Link href="/">
+                        <Image
+                            src="/images/projectLogo.png" 
+                            alt="CorrViz Logo"
+                            width={80}
+                            height={50}
+                        />
+                    </Link>
                 </div>
 
                 <nav className="hidden md:flex items-center justify-center flex-1 space-x-6">
                     <Link href="/" className="text-lg font-medium hover:text-purple-400 transition duration-300">Home</Link>
-                    <Link href="/aboutUs" className="text-lg font-medium hover:text-purple-400 transition duration-300">About</Link>
+                    <Link href="/aboutUs" className="text-lg font-medium hover:text-purple-400 transition duration-300">About Us</Link>
                     <Link href="/contactUs" className="text-lg font-medium hover:text-purple-400 transition duration-300">Contact Us</Link>
                 </nav>
 
@@ -110,8 +112,8 @@ export default function HomePageHeader() {
 
                         <nav className="space-y-4">
                             <Link href="/" className="block text-lg font-medium text-white hover:text-purple-400 transition duration-300">Home</Link>
-                            <Link href="/about" className="block text-lg font-medium text-white hover:text-purple-400 transition duration-300">About</Link>
-                            <Link href="/contact" className="block text-lg font-medium text-white hover:text-purple-400 transition duration-300">Contact Us</Link>
+                            <Link href="/aboutUs" className="block text-lg font-medium text-white hover:text-purple-400 transition duration-300">About Us</Link>
+                            <Link href="/contactUs" className="block text-lg font-medium text-white hover:text-purple-400 transition duration-300">Contact Us</Link>
 
                             {isAuthenticated ? (
                                 <LogoutButton />

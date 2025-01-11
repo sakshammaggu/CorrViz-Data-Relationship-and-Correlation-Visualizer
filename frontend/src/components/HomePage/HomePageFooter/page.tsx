@@ -19,7 +19,7 @@ export default function HomePageFooter() {
                     <h2 className="text-lg font-semibold mb-2">Quick Links</h2>
                     <ul className="space-y-2 text-sm text-center">
                         <li>
-                            <Link href="/home" className="text-gray-400 hover:text-purple-400 transition">
+                            <Link href="/" className="text-gray-400 hover:text-purple-400 transition">
                                 Home
                             </Link>
                         </li>
