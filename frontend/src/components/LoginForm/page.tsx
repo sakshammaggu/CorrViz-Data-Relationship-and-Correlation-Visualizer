@@ -1,13 +1,27 @@
 "use client"
 import React from "react";
+import Link from "next/link"
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { Input } from '@/components/ui/input';
+import { Button } from "../ui/button";
+import GoogleLoginButton from "../GoogleAuthenticationButton/GoogleLoginButton/page";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from "../ui/button";
-import Link from "next/link"
-import GoogleLoginButton from "../GoogleAuthenticationButton/GoogleLoginButton/page";
+import { 
+    Form, 
+    FormField, 
+    FormItem, 
+    FormLabel, 
+    FormControl, 
+    FormDescription, 
+    FormMessage 
+} from '@/components/ui/form';
 
 const formSchema = z.object({
     email: z.string().email("Please enter a valid email address.").min(1, "Email is required."),
@@ -15,6 +29,8 @@ const formSchema = z.object({
 })
 
 const LoginForm: React.FC = () => {
+    const router = useRouter();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -24,13 +40,24 @@ const LoginForm: React.FC = () => {
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        // console.log(values);
+        try {
+            const response = await axios.post("/api/users/login", values);
+            const { token } = response.data;
+            localStorage.setItem("token", token);
+            toast.success("Login successful!", { position: "top-right" });
+            router.push("/"); 
+        } catch (error: any) {
+            // console.error("Login failed:", error.response?.data || error.message);
+            toast.error(
+              error.response?.data?.message || "An error occurred",
+              { position: "top-right" }
+            );
+        }
     };
 
     const handleGoogleLogin = () => {
         // console.log("Google Sign-In initiated");
     };
-
 
     return (
         <div className="w-full max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
@@ -91,6 +118,7 @@ const LoginForm: React.FC = () => {
                     </Button>
                 </form>
             </Form>
+
             <div className="flex items-center my-4">
                 <hr className="flex-grow border-gray-300" />
                 <span className="px-4 text-gray-500">OR</span>
@@ -98,12 +126,14 @@ const LoginForm: React.FC = () => {
             </div>
 
             <GoogleLoginButton onClick={handleGoogleLogin} />
+
             <p className="mt-4 text-center text-sm">
                 Don't have an account?{' '}
                 <Link href="/signup" className="text-blue-600 hover:text-blue-700 font-medium">
                     Sign up
                 </Link>
             </p>
+            <ToastContainer />
         </div>
     )
 }
