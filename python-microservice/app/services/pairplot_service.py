@@ -1,9 +1,9 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
 import base64
-import os
 from io import BytesIO
-from datetime import datetime
+# import os
+# from datetime import datetime
 
 def generate_pairplot(df):
     numeric_df = df.select_dtypes(include=["number"])
@@ -18,14 +18,14 @@ def generate_pairplot(df):
 
     pairplot_image.seek(0)
 
-    output_folder = "outputs"
-    os.makedirs(output_folder, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    pairplot_output_file_path = os.path.join(output_folder, f"pairplot_{timestamp}.png")
+    # output_folder = "outputs"
+    # os.makedirs(output_folder, exist_ok=True)
+    # timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    # pairplot_output_file_path = os.path.join(output_folder, f"pairplot_{timestamp}.png")
 
-    with open(pairplot_output_file_path, "wb") as f:
-        f.write(pairplot_image.read())
+    # with open(pairplot_output_file_path, "wb") as f:
+    #     f.write(pairplot_image.read())
 
     pairplot_base64 = base64.b64encode(pairplot_image.getvalue()).decode("utf-8")
 
-    return pairplot_base64, pairplot_output_file_path
+    return pairplot_base64

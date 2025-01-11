@@ -1,10 +1,10 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
 import base64
-import os
-from io import BytesIO
-from datetime import datetime
 import itertools
+from io import BytesIO
+# from datetime import datetime
+# import os
 
 def generate_scatterplots(df):
     numeric_columns = df.select_dtypes(include=["number"]).columns
@@ -39,14 +39,14 @@ def generate_scatterplots(df):
     plt.savefig(scatterplots_image, format="png")
     plt.close()
 
-    output_folder = "outputs"
-    os.makedirs(output_folder, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    scatterplot_output_file_path = os.path.join(output_folder, f"scatterplots_{timestamp}.png")
+    # output_folder = "outputs"
+    # os.makedirs(output_folder, exist_ok=True)
+    # timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    # scatterplot_output_file_path = os.path.join(output_folder, f"scatterplots_{timestamp}.png")
 
-    with open(scatterplot_output_file_path, "wb") as f:
-        f.write(scatterplots_image.getvalue())
+    # with open(scatterplot_output_file_path, "wb") as f:
+    #     f.write(scatterplots_image.getvalue())
 
     scatterplots_base64 = base64.b64encode(scatterplots_image.getvalue()).decode("utf-8")
 
-    return scatterplots_base64, scatterplot_output_file_path
+    return scatterplots_base64

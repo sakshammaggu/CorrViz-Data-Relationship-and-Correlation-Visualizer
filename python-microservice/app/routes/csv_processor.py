@@ -26,25 +26,22 @@ async def process_csv(request: CSVRequest):
 
         # heatmap
         heatmap_base64 = ""
-        heatmap_file_path = ""
         try:
-            heatmap_base64, heatmap_file_path = generate_correlation_heatmap(cleaned_data)
+            heatmap_base64 = generate_correlation_heatmap(cleaned_data)
         except Exception as e:
             print(f"Error generating heatmap: {str(e)}")
 
         # pairplot
         pairplot_base64 = ""
-        pairplot_file_path = ""
         try:
-            pairplot_base64, pairplot_file_path = generate_pairplot(cleaned_data)
+            pairplot_base64 = generate_pairplot(cleaned_data)
         except Exception as e:
             print(f"Error generating pairplot: {str(e)}")
 
         # scatterplots
         scatterplots_base64 = ""
-        scatterplot_file_path = ""
         try:
-            scatterplots_base64, scatterplot_file_path = generate_scatterplots(cleaned_data)
+            scatterplots_base64 = generate_scatterplots(cleaned_data)
         except Exception as e:
             print(f"Error generating scatterplots: {str(e)}")
 
@@ -59,15 +56,12 @@ async def process_csv(request: CSVRequest):
                 "head": cleaned_data.head(5).to_dict(orient="records"),
                 "heatmap": {
                     "heatmap_base64": heatmap_base64, 
-                    "heatmap_file_path": heatmap_file_path
                 },
                 "pairplot": {
                     "pairplot_base64": pairplot_base64,
-                    "pairplot_file_path": pairplot_file_path,
                 },
                 "scatterplots": {
                     "scatterplots_base64": scatterplots_base64,
-                    "scatterplot_file_path": scatterplot_file_path,
                 }
             }
         )

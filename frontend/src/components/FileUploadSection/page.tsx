@@ -50,10 +50,10 @@ const FileUploadSection: React.FC = () => {
   };
 
   return (
-    <section className="flex-1 flex flex-col items-center justify-center p-6">
+    <section id="fileUploadSection" className="flex-1 flex flex-col items-center justify-center p-6">
       <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-8">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Upload Your File
+          Upload Your CSV File
         </h1>
 
         <DropFile onFileSelect={handleFileSelect} />

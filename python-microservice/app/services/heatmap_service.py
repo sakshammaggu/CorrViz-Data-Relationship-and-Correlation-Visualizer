@@ -1,9 +1,9 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
 import base64
-import os
 from io import BytesIO
-from datetime import datetime
+# import os
+# from datetime import datetime
 
 def generate_correlation_heatmap(df):
     numeric_df = df.select_dtypes(include=["number"])
@@ -21,14 +21,14 @@ def generate_correlation_heatmap(df):
 
     heatmap_image.seek(0)
 
-    output_folder = "outputs"
-    os.makedirs(output_folder, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    heatmap_output_file_path = os.path.join(output_folder, f"heatmap_{timestamp}.png")
+    # output_folder = "outputs"
+    # os.makedirs(output_folder, exist_ok=True)
+    # timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    # heatmap_output_file_path = os.path.join(output_folder, f"heatmap_{timestamp}.png")
 
-    with open(heatmap_output_file_path, "wb") as f:
-        f.write(heatmap_image.read())
+    # with open(heatmap_output_file_path, "wb") as f:
+    #     f.write(heatmap_image.read())
 
     heatmap_base64 = base64.b64encode(heatmap_image.getvalue()).decode("utf-8")
 
-    return heatmap_base64, heatmap_output_file_path
+    return heatmap_base64
