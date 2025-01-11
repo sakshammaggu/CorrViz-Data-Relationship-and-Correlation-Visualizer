@@ -1,13 +1,27 @@
 "use client"
 import React from "react";
+import Link from "next/link"
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { Input } from '@/components/ui/input';
+import { Button } from "../ui/button";
+import GoogleSignupButton from "../GoogleAuthenticationButton/GoogleSignupButton/page";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from "../ui/button";
-import Link from "next/link"
-import GoogleSignupButton from "../GoogleAuthenticationButton/GoogleSignupButton/page";
+import { 
+    Form, 
+    FormField, 
+    FormItem, 
+    FormLabel, 
+    FormControl, 
+    FormDescription, 
+    FormMessage 
+} from '@/components/ui/form';
 
 const formSchema = z.object({
     email: z.string().email("Please enter a valid email address.").min(1, "Email is required."),
@@ -15,6 +29,8 @@ const formSchema = z.object({
 })
 
 const SignupForm: React.FC = () => {
+    const router = useRouter();
+    
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -24,7 +40,21 @@ const SignupForm: React.FC = () => {
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
+        try {
+            const response = await axios.post('/api/users/signup', values);
+            toast.success('User registered successfully!', {
+                position: 'top-right',
+            });
+            console.log('User signed up:', response.data);
+            setTimeout(() => {
+                router.push('/'); 
+            }, 2000); 
+        } catch (error: any) {
+            console.error('Error signing up:', error.response?.data || error.message);
+            toast.error('Error signing up: ' + (error.response?.data?.message || error.message), {
+                position: 'top-right',
+            });
+        }
     };
 
     const handleGoogleSignUp = () => {
@@ -105,6 +135,8 @@ const SignupForm: React.FC = () => {
                     Login
                 </Link>
             </p>
+
+            <ToastContainer />
         </div>
     )
 }
