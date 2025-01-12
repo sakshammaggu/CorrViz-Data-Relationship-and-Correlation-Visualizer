@@ -7,7 +7,7 @@ const uploadErrorHandler = (
     next:NextFunction
 ) : void => {
     if (err) {
-        console.log('File upload error:', err.message);
+        // console.log('File upload error:', err.message);
         res.status(500).json({ message: 'Error processing file upload', error: err.message });
     }
 }
