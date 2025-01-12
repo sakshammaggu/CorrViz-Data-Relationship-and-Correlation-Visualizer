@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import HomePageHeader from '@/components/HomePage/HomePageHeader/page';
+import HomePageFooter from '@/components/HomePage/HomePageFooter/page';
 
 const AboutUsPage: React.FC = () => {
     const router = useRouter();
@@ -119,6 +120,8 @@ const AboutUsPage: React.FC = () => {
                     </div>
                 </div>
             </section>
+
+            <HomePageFooter />
         </div>
     );
 };

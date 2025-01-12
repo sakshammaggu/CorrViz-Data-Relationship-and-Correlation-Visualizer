@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+
 import LogoutButton from '@/components/LogoutButton/page';
 import { Button } from '@/components/ui/button';
 
@@ -25,6 +26,9 @@ export default function HomePageHeader() {
                 <div className="flex items-center space-x-2">
                     <Link href="/">
                         <Image
+                            onClick={() => {
+                                window.location.href = '/';
+                            }}
                             src="/images/projectLogo.png" 
                             alt="CorrViz Logo"
                             width={80}

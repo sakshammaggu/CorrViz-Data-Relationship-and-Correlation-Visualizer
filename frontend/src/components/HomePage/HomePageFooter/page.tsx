@@ -8,10 +8,12 @@ export default function HomePageFooter() {
             <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-start md:items-center">
                 <div className="md:flex-1 mb-4 md:mb-0 md:text-left">
                     <h2 className="text-lg font-semibold mb-2">About Us</h2>
-                    <p className="text-sm text-gray-400">
-                        Data Visualizer Tool is a platform designed to help users upload and analyze
-                        data for better insights. Built with the latest technology for seamless user
-                        experience.
+                    <p className="text-sm text-gray-400 text-justify">
+                        CorrViz is a powerful 
+                        <b><span className='text-orange-400'> Data Correlation and Relationship Analytics Tool </span></b>
+                        that allows users to upload CSV files and generate correlation heatmaps, pair plots, and 
+                        scatter plots for data analysis. This tool helps in visualizing the relationships and correlations 
+                        between multiple variables in a dataset.
                     </p>
                 </div>
 
@@ -40,14 +42,8 @@ export default function HomePageFooter() {
                     <h2 className="text-lg font-semibold mb-2">Contact Us</h2>
                     <p className="text-sm text-gray-400">
                         Email:{" "}
-                        <Link href="mailto:support@datavisualizer.com" className="hover:text-gray-300 transition">
-                            support@datavisualizer.com
-                        </Link>
-                    </p>
-                    <p className="text-sm text-gray-400">
-                        Phone:{" "}
-                        <Link href="tel:+1234567890" className="hover:text-gray-300 transition">
-                            +123 456 7890
+                        <Link href="mailto:sakshammaggu80@gmail.com" className="hover:text-purple-300 transition">
+                            sakshammaggu80@gmail.com
                         </Link>
                     </p>
                 </div>
