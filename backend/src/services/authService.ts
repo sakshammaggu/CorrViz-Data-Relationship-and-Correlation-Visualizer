@@ -8,12 +8,8 @@ interface User extends Document {
 }
 
 export const generateToken = (user: User): string => {
-  const payload = {
-    email: user.email,
-  };
-
+  const payload = { email: user.email, };
   const jwtSecret = process.env.JWT_SECRET_KEY as string;
-
   return jwt.sign(payload, jwtSecret, { expiresIn: "1h" });
 };
 
