@@ -46,12 +46,15 @@ const LoginForm: React.FC = () => {
             localStorage.setItem("token", token);
             toast.success("Login successful!", { position: "top-right" });
             router.push("/"); 
-        } catch (error: any) {
-            // console.error("Login failed:", error.response?.data || error.message);
-            toast.error(
-              error.response?.data?.message || "An error occurred",
-              { position: "top-right" }
-            );
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                toast.error(
+                  error.response?.data?.message || "An error occurred",
+                  { position: "top-right" }
+                );
+            } else {
+                toast.error("An unexpected error occurred", { position: "top-right" });
+            }
         }
     };
 
@@ -128,7 +131,7 @@ const LoginForm: React.FC = () => {
             <GoogleLoginButton onClick={handleGoogleLogin} />
 
             <p className="mt-4 text-center text-sm">
-                Don't have an account?{' '}
+                Dont have an account?{' '}
                 <Link href="/signup" className="text-blue-600 hover:text-blue-700 font-medium">
                     Sign up
                 </Link>

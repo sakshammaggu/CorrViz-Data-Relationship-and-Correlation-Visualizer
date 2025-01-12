@@ -4,6 +4,7 @@ import DropFile from '../DropFile/page'
 import { Button } from '@/components/ui/button';
 import { Progress } from '../ui/progress';
 import { Download } from 'lucide-react';
+import Image from 'next/image';
 import axios from 'axios';
 
 const FileUploadSection: React.FC = () => {
@@ -101,7 +102,7 @@ const FileUploadSection: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {images.map((image, index) => (
                     <div key={index} className="relative border rounded-lg shadow-md p-2 group">
-                      <img
+                      <Image
                         src={`data:image/png;base64,${image.base64}`}
                         alt={image.title}
                         className="max-w-full h-auto"

@@ -41,7 +41,7 @@ const SignupForm: React.FC = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const response = await axios.post('/api/users/signup', values);
+            await axios.post('/api/users/signup', values);
             toast.success('User registered successfully!', {
                 position: 'top-right',
             });
@@ -49,11 +49,20 @@ const SignupForm: React.FC = () => {
             setTimeout(() => {
                 router.push('/'); 
             }, 2000); 
-        } catch (error: any) {
-            // console.error('Error signing up:', error.response?.data || error.message);
-            toast.error('Error signing up: ' + (error.response?.data?.message || error.message), {
-                position: 'top-right',
-            });
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                toast.error(
+                    "Error signing up: " +
+                        (error.response?.data?.message || error.message),
+                    {
+                        position: "top-right",
+                    }
+                );
+            } else {
+                toast.error("An unexpected error occurred.", {
+                    position: "top-right",
+                });
+            }
         }
     };
 

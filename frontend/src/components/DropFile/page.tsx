@@ -14,7 +14,7 @@ const DropFile: React.FC<DropFileProps> = ({ onFileSelect }) => {
         setDragging(true);
     };
 
-    const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    const handleDragLeave = () => {
         setDragging(false);
     };
 
